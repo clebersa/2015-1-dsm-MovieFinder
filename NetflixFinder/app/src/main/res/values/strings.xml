@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">NetflixFinder</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_search">Search</string>
+    <string name="search_hint">Type the name of the movie, serie...</string>
+</resources>
