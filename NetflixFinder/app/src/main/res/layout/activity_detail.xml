@@ -48,19 +48,31 @@
                 android:layout_below="@+id/showTitle"
                 android:layout_alignLeft="@+id/showTitle" />
 
-            <RatingBar style="@style/netflixRatingBar"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Runtime"
+                android:id="@+id/runtime"
+                android:layout_toRightOf="@+id/releaseYear"
+                android:layout_below="@+id/showTitle"
+                android:paddingLeft="20dp" />
+
+            <RatingBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/ratingBar"
                 android:layout_below="@+id/releaseYear"
                 android:layout_alignLeft="@+id/showTitle"
+                android:isIndicator="true"
                 android:numStars="5"
-                android:nestedScrollingEnabled="false"/>
+                android:nestedScrollingEnabled="false"
+                style="@style/netflixRatingBar"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="New Text"
+                android:text="Summary"
                 android:id="@+id/summary"
                 android:layout_below="@+id/poster"
                 android:layout_gravity="right"
