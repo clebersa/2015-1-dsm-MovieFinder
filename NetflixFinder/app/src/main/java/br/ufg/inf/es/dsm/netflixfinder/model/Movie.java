@@ -6,11 +6,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+<<<<<<< HEAD
 import java.io.Serializable;
 import java.lang.reflect.Array;
+=======
+>>>>>>> 5cc90274e9b0b0583e9880b15ea44788d64ea61b
 import java.util.ArrayList;
 
+/**
+ * Created by Bruno on 03/06/2015.
+ * Edited by Cleber on 03/06/2015.
+ */
 public class Movie {
+    private final String imageBaseUrl = "https://image.tmdb.org/t/p/w342/";
     private Integer id;
     private Boolean isAdult;
     private String backDropPath;
@@ -26,8 +34,6 @@ public class Movie {
     private ArrayList<Video> videos = new ArrayList<>();;
     private ArrayList<CastPeople> showCast = new ArrayList<>();;
     private ArrayList<String> alternativeTitles = new ArrayList<>();;
-
-    private final String imageBaseUrl = "https://image.tmdb.org/t/p/w342/";
 
     public Movie() {
 

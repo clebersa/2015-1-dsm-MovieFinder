@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+<<<<<<< HEAD
 import br.ufg.inf.es.dsm.netflixfinder.FinderApplication;
 import br.ufg.inf.es.dsm.netflixfinder.assyncTask.FilmAssyncTask;
 import br.ufg.inf.es.dsm.netflixfinder.fragment.FilmsFragment;
@@ -26,9 +27,20 @@ import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebserviceConsumer;
 import br.ufg.inf.es.dsm.netflixfinder.model.Configuration;
 import br.ufg.inf.es.dsm.netflixfinder.model.Movie;
 import br.ufg.inf.es.dsm.netflixfinder.model.WebserviceResponse;
+=======
+import br.ufg.inf.es.dsm.netflixfinder.assyncTask.MoviesAsyncTask;
+import br.ufg.inf.es.dsm.netflixfinder.fragment.FilmsFragment;
+import br.ufg.inf.es.dsm.netflixfinder.R;
+import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebServiceConsumer;
+import br.ufg.inf.es.dsm.netflixfinder.model.WebServiceResponse;
+>>>>>>> 5cc90274e9b0b0583e9880b15ea44788d64ea61b
 
 
-public class HomeActivity extends ActionBarActivity implements SearchView.OnQueryTextListener, WebserviceConsumer {
+/**
+ * Created by Cleber on 02/06/2015.
+ * Edited by Bruno on 03/06/2015.
+ */
+public class HomeActivity extends ActionBarActivity implements SearchView.OnQueryTextListener, WebServiceConsumer {
 
     private final static String LOG_TAG = HomeActivity.class.getSimpleName();
 
@@ -51,7 +63,7 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
         Log.d(LOG_TAG, configuration.getImageBaseUrl());
 
         if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().add(R.id.resultList, new FilmsFragment()).commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.RESULT_FRAGMENT, new FilmsFragment()).commit();
         }
     }
 
@@ -103,9 +115,17 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+<<<<<<< HEAD
         if( isNetworkAvailable() ){
             FilmAssyncTask service = new FilmAssyncTask(this, this, query);
             service.execute();
+=======
+        if(!isNetworkAvailable()){
+            Log.d( "onQueryTextSubmit", "Sem conexão com a internet" );
+        }else{
+            MoviesAsyncTask service = new MoviesAsyncTask(this);
+            service.execute(query);
+>>>>>>> 5cc90274e9b0b0583e9880b15ea44788d64ea61b
         }
         return true;
     }
@@ -116,7 +136,7 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
     }
 
     @Override
-    public void receiveResponse(WebserviceResponse response) {
+    public void receiveResponse(WebServiceResponse response) {
         if( response.isSuccess() ) {
             JSONObject reader = null;
             Integer movieId = null;

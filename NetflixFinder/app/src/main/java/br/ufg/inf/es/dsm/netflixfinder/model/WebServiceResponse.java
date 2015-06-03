@@ -2,8 +2,9 @@ package br.ufg.inf.es.dsm.netflixfinder.model;
 
 /**
  * Created by Bruno on 03/06/2015.
+ * Edited by Cleber on 03/06/2015.
  */
-public class WebserviceResponse {
+public class WebServiceResponse {
     private final int SUCCESS = 200;
     private Integer responseCode;
     private String body;
