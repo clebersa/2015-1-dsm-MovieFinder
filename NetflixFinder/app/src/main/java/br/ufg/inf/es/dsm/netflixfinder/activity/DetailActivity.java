@@ -14,14 +14,13 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import br.ufg.inf.es.dsm.netflixfinder.R;
-import br.ufg.inf.es.dsm.netflixfinder.assyncTask.FilmAssyncTask;
-import br.ufg.inf.es.dsm.netflixfinder.assyncTask.MovieDetailAssyncTask;
-import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebserviceConsumer;
+import br.ufg.inf.es.dsm.netflixfinder.assyncTask.MovieDetailedAsyncTask;
+import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebServiceConsumer;
 import br.ufg.inf.es.dsm.netflixfinder.model.Movie;
-import br.ufg.inf.es.dsm.netflixfinder.model.WebserviceResponse;
+import br.ufg.inf.es.dsm.netflixfinder.model.WebServiceResponse;
 
 
-public class DetailActivity extends ActionBarActivity implements WebserviceConsumer {
+public class DetailActivity extends ActionBarActivity implements WebServiceConsumer {
     private Movie movie;
     private ProgressDialog progressDialog;
 
@@ -33,12 +32,12 @@ public class DetailActivity extends ActionBarActivity implements WebserviceConsu
                 "Loading application View, please wait...", false, false);
 
         Integer movieId = getIntent().getIntExtra( "movieId", 0 );
-        MovieDetailAssyncTask service = new MovieDetailAssyncTask(this);
+        MovieDetailedAsyncTask service = new MovieDetailedAsyncTask(this);
         service.execute(movieId);
     }
 
     @Override
-    public void receiveResponse(WebserviceResponse response) {
+    public void receiveResponse(WebServiceResponse response) {
         if( !response.isSuccess() ) {
             Log.d("receiveResponse", "Erro na requisição");
         }
@@ -48,7 +47,7 @@ public class DetailActivity extends ActionBarActivity implements WebserviceConsu
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.mainToolbar);
         toolbar.setTitleTextColor(Color.WHITE);
-        toolbar.setTitle( movie.getTitle() );
+        toolbar.setTitle(movie.getTitle());
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -69,11 +68,11 @@ public class DetailActivity extends ActionBarActivity implements WebserviceConsu
         releaseYear.setText( movie.getReleaseDate() );
 
         TextView runtime = (TextView) findViewById( R.id.runtime );
-        runtime.setText( movie.getRuntime().toString() );
+        runtime.setText(movie.getRuntime().toString());
 
         float rating = (float)(movie.getVoteAverrage() / 2);
         RatingBar ratingBar = (RatingBar) findViewById( R.id.ratingBar );
-        ratingBar.setRating( rating );
+        ratingBar.setRating(rating);
 
         TextView summary = (TextView) findViewById( R.id.summary );
         summary.setText( movie.getOverview() );
