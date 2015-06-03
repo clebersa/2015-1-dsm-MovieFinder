@@ -10,7 +10,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.JsonReader;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,15 +18,19 @@ import android.view.MenuItem;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import br.ufg.inf.es.dsm.netflixfinder.FinderApplication;
 import br.ufg.inf.es.dsm.netflixfinder.assyncTask.FilmAssyncTask;
 import br.ufg.inf.es.dsm.netflixfinder.fragment.FilmsFragment;
 import br.ufg.inf.es.dsm.netflixfinder.R;
 import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebserviceConsumer;
+import br.ufg.inf.es.dsm.netflixfinder.model.Configuration;
 import br.ufg.inf.es.dsm.netflixfinder.model.Movie;
 import br.ufg.inf.es.dsm.netflixfinder.model.WebserviceResponse;
 
 
 public class HomeActivity extends ActionBarActivity implements SearchView.OnQueryTextListener, WebserviceConsumer {
+
+    private final static String LOG_TAG = HomeActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +42,22 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
 
         setSupportActionBar(toolbar);
 
+        Configuration configuration = ((FinderApplication) this.getBaseContext().getApplicationContext()).getConfiguration();
+
+        Log.d(LOG_TAG, configuration.getImageBaseUrl());
+        configuration.setImageBaseUrl("LALALALALALALALA");
+
+        configuration = ((FinderApplication) this.getBaseContext().getApplicationContext()).getConfiguration();
+        Log.d(LOG_TAG, configuration.getImageBaseUrl());
+
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().add(R.id.resultList, new FilmsFragment()).commit();
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
     }
 
     @Override
@@ -87,11 +103,9 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        if(!isNetworkAvailable()){
-            Log.d( "onQueryTextSubmit", "Sem conexão com a internet" );
-        }else{
-            FilmAssyncTask service = new FilmAssyncTask(this);
-            service.execute(query);
+        if( isNetworkAvailable() ){
+            FilmAssyncTask service = new FilmAssyncTask(this, this, query);
+            service.execute();
         }
         return true;
     }

@@ -33,8 +33,8 @@ public class DetailActivity extends ActionBarActivity implements WebserviceConsu
                 "Loading application View, please wait...", false, false);
 
         Integer movieId = getIntent().getIntExtra( "movieId", 0 );
-        MovieDetailAssyncTask service = new MovieDetailAssyncTask(this);
-        service.execute(movieId);
+        MovieDetailAssyncTask service = new MovieDetailAssyncTask(this, this, movieId);
+        service.execute();
     }
 
     @Override

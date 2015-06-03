@@ -1,30 +1,31 @@
 package br.ufg.inf.es.dsm.netflixfinder.model;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Movie {
     private Integer id;
     private Boolean isAdult;
     private String backDropPath;
-    private String originalLanguage;
     private String originalTitle;
     private String overview;
     private String releaseDate;
     private String posterPath;
-    private Double popularity;
     private String title;
     private Double voteAverrage;
     private Integer voteCount;
     private Integer runtime;
-    private Integer revenue;
-    private String status;
-    private String tagline;
-    private ArrayList<String> genres;
+    private ArrayList<Genre> genres = new ArrayList<>();;
+    private ArrayList<Video> videos = new ArrayList<>();;
+    private ArrayList<CastPeople> showCast = new ArrayList<>();;
+    private ArrayList<String> alternativeTitles = new ArrayList<>();;
 
     private final String imageBaseUrl = "https://image.tmdb.org/t/p/w342/";
 
@@ -33,29 +34,47 @@ public class Movie {
     }
 
     public Movie(String jsonIn) {
-        this.genres = new ArrayList<>();
         try {
             JSONObject reader = new JSONObject(jsonIn);
             this.id = reader.getInt("id");
             this.isAdult = reader.getBoolean("adult");
             this.backDropPath = reader.getString("backdrop_path");
-            this.originalLanguage = reader.getString("original_language");
             this.originalTitle = reader.getString("original_title");
             this.overview = reader.getString("overview");
             this.releaseDate = reader.getString("release_date");
             this.posterPath = reader.getString("poster_path");
-            this.popularity = reader.getDouble("popularity");
             this.title = reader.getString("title");
             this.voteAverrage = reader.getDouble("vote_average");
             this.voteCount = reader.getInt("vote_count");
-            this.revenue = reader.getInt("revenue");
             this.runtime = reader.getInt("runtime");
-            this.status = reader.getString("status");
-            this.tagline = reader.getString("tagline");
 
             JSONArray genres = reader.getJSONArray("genres");
+            Genre tmpGenre;
             for( int i = 0; i < genres.length(); i++ ) {
-                this.genres.add( genres.getJSONObject(i).getString("name") );
+                tmpGenre = new Genre( genres.getJSONObject(i).toString() );
+                this.genres.add( tmpGenre );
+            }
+
+            JSONArray videos = reader.getJSONObject("videos").getJSONArray("results");
+            Video tmpVideo;
+            for( int i = 0; i < videos.length(); i++ ) {
+                tmpVideo = new Video( videos.getJSONObject(i).toString() );
+                this.videos.add( tmpVideo );
+            }
+
+            JSONArray castPeoples = reader.getJSONObject("credits").getJSONArray("cast");
+            CastPeople tmpCastPeople;
+            for( int i = 0; i < videos.length(); i++ ) {
+                tmpCastPeople = new CastPeople( castPeoples.getJSONObject(i).toString() );
+                this.showCast.add( tmpCastPeople );
+            }
+
+            JSONArray alternativeTitles = reader.getJSONObject("alternative_titles").
+                    getJSONArray("titles");
+            String tmpTitle;
+            for( int i = 0; i < alternativeTitles.length(); i++ ) {
+                tmpTitle = alternativeTitles.getJSONObject(i).getString("title");
+                this.alternativeTitles.add( tmpTitle );
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -86,13 +105,6 @@ public class Movie {
         this.backDropPath = backDropPath;
     }
 
-    public String getOriginalLanguage() {
-        return originalLanguage;
-    }
-
-    public void setOriginalLanguage(String originalLanguage) {
-        this.originalLanguage = originalLanguage;
-    }
 
     public String getOriginalTitle() {
         return originalTitle;
@@ -124,14 +136,6 @@ public class Movie {
 
     public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
-    }
-
-    public Double getPopularity() {
-        return popularity;
-    }
-
-    public void setPopularity(Double popularity) {
-        this.popularity = popularity;
     }
 
     public String getTitle() {
@@ -166,31 +170,4 @@ public class Movie {
         this.runtime = runtime;
     }
 
-    public Integer getRevenue() {
-        return revenue;
-    }
-
-    public void setRevenue(Integer revenue) {
-        this.revenue = revenue;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getTagline() {
-        return tagline;
-    }
-
-    public void setTagline(String tagline) {
-        this.tagline = tagline;
-    }
-
-    public ArrayList<String> getGenres() {
-        return genres;
-    }
 }
