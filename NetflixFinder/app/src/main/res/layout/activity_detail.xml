@@ -48,17 +48,14 @@
                 android:layout_below="@+id/showTitle"
                 android:layout_alignLeft="@+id/showTitle" />
 
-            <RatingBar
+            <RatingBar style="@style/netflixRatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/ratingBar"
                 android:layout_below="@+id/releaseYear"
                 android:layout_alignLeft="@+id/showTitle"
-                android:isIndicator="true"
                 android:numStars="5"
-                android:nestedScrollingEnabled="false"
-                android:scaleX="0.5"
-                android:scaleY="0.5"/>
+                android:nestedScrollingEnabled="false"/>
 
             <TextView
                 android:layout_width="match_parent"

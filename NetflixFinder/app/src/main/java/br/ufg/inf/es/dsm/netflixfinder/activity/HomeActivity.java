@@ -1,4 +1,4 @@
-package br.ufg.inf.es.dsm.netflixfinder;
+package br.ufg.inf.es.dsm.netflixfinder.activity;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import br.ufg.inf.es.dsm.netflixfinder.fragment.FilmsFragment;
+import br.ufg.inf.es.dsm.netflixfinder.R;
 import br.ufg.inf.es.dsm.netflixfinder.model.Film;
 
 

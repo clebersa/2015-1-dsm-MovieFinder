@@ -1,4 +1,4 @@
-package br.ufg.inf.es.dsm.netflixfinder;
+package br.ufg.inf.es.dsm.netflixfinder.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import br.ufg.inf.es.dsm.netflixfinder.R;
 
 /**
  * Created by cleber on 02/06/15.

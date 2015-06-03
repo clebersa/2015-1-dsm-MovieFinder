@@ -1,4 +1,4 @@
-package br.ufg.inf.es.dsm.netflixfinder;
+package br.ufg.inf.es.dsm.netflixfinder.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import br.ufg.inf.es.dsm.netflixfinder.R;
 import br.ufg.inf.es.dsm.netflixfinder.model.Film;
 
 
