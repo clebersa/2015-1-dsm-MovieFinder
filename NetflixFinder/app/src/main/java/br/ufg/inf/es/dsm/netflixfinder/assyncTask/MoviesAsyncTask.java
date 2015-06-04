@@ -2,6 +2,9 @@ package br.ufg.inf.es.dsm.netflixfinder.assyncTask;
 
 import android.content.Context;
 import android.net.Uri;
+
+import com.malinskiy.superrecyclerview.OnMoreListener;
+
 import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebServiceConsumer;
 
 /**
@@ -10,10 +13,12 @@ import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebServiceConsumer;
  */
 public class MoviesAsyncTask extends AbstractAssyncTask<Void> {
     private String title;
+    private Integer page;
 
-    public MoviesAsyncTask(WebServiceConsumer handler, Context context, String title) {
+    public MoviesAsyncTask(WebServiceConsumer handler, Context context, String title, Integer page) {
         super(handler, context);
         this.title = title;
+        this.page = page;
     }
 
     @Override
@@ -21,6 +26,7 @@ public class MoviesAsyncTask extends AbstractAssyncTask<Void> {
         uriBuilder.appendPath("search")
                 .appendPath("movie")
                 .appendQueryParameter("include_adult", "false")
-                .appendQueryParameter("query", title);
+                .appendQueryParameter("query", title)
+                .appendQueryParameter("page", String.valueOf(page));
     }
 }

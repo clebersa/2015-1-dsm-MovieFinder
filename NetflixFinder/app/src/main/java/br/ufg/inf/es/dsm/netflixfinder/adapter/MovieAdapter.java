@@ -2,6 +2,7 @@ package br.ufg.inf.es.dsm.netflixfinder.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.ufg.inf.es.dsm.netflixfinder.FinderApplication;
@@ -30,6 +32,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public MovieAdapter(List<Movie> movieList, Configuration configuration ) {
         this.movieList = movieList;
         this.configuration = configuration;
+    }
+
+    public List<Movie> getMovieList() {
+        return movieList;
     }
 
     public void changeData( List<Movie> movieList ) {

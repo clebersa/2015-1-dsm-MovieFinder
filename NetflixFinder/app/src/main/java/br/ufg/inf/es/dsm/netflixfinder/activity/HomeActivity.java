@@ -15,6 +15,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.malinskiy.superrecyclerview.OnMoreListener;
+import com.malinskiy.superrecyclerview.SuperRecyclerView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.ufg.inf.es.dsm.netflixfinder.FinderApplication;
+import br.ufg.inf.es.dsm.netflixfinder.MovieListLoader;
 import br.ufg.inf.es.dsm.netflixfinder.adapter.MovieAdapter;
 import br.ufg.inf.es.dsm.netflixfinder.fragment.FilmsFragment;
 import br.ufg.inf.es.dsm.netflixfinder.R;
@@ -38,10 +43,10 @@ import br.ufg.inf.es.dsm.netflixfinder.model.WebServiceResponse;
  * Created by Cleber on 02/06/2015.
  * Edited by Bruno on 03/06/2015.
  */
-public class HomeActivity extends ActionBarActivity implements SearchView.OnQueryTextListener, WebServiceConsumer {
+public class HomeActivity extends ActionBarActivity implements SearchView.OnQueryTextListener {
 
     private final static String LOG_TAG = HomeActivity.class.getSimpleName();
-    MovieAdapter movieAdapter;
+    SuperRecyclerView recList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +58,13 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
 
         setSupportActionBar(toolbar);
 
-        RecyclerView recList = (RecyclerView) findViewById( R.id.cardList );
+        recList = (SuperRecyclerView) findViewById( R.id.cardList );
         GridLayoutManager layout = new GridLayoutManager( this, 3 );
-        recList.setLayoutManager( layout );
-        recList.setHasFixedSize(true);
+        recList.setLayoutManager(layout);
+        recList.getRecyclerView().setHasFixedSize(true);
 
         Configuration configuration = ((FinderApplication) this.getBaseContext().getApplicationContext()).getConfiguration();
-        movieAdapter = new MovieAdapter(new ArrayList<Movie>(), configuration);
+        MovieAdapter movieAdapter = new MovieAdapter(new ArrayList<Movie>(), configuration);
         recList.setAdapter(movieAdapter);
 
         if(savedInstanceState == null){
@@ -83,59 +88,17 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        if(id == R.id.action_search){
-            Log.d("SEARCH", "Search touched.");
-
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
-    }
-
-    public boolean isNetworkAvailable() {
-        ConnectivityManager cm = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
-
-        if (networkInfo != null && networkInfo.isConnected()) {
-            return true;
-        }
-        return false;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        if( isNetworkAvailable() ){
-            MoviesAsyncTask service = new MoviesAsyncTask(this, this, query);
-            service.execute();
-        }
+        MovieListLoader loader = new MovieListLoader( this, recList, query );
         return true;
     }
 
     @Override
     public boolean onQueryTextChange(String s) {
         return false;
-    }
-
-    @Override
-    public void receiveResponse(WebServiceResponse response) {
-        if( response.isSuccess() ) {
-            List<Movie> result = new ArrayList<Movie>();
-            try {
-                JSONArray reader = new JSONObject(response.getBody()).getJSONArray("results");
-                Movie tmpMovie;
-                for( int i = 0; i < reader.length(); i++ ) {
-                    tmpMovie = new Movie( reader.getJSONObject(i).toString() );
-                    result.add(tmpMovie);
-                }
-            } catch (JSONException e) {}
-
-            movieAdapter.changeData( result );
-        }
     }
 }
