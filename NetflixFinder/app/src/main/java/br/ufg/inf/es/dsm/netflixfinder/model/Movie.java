@@ -22,7 +22,7 @@ public class Movie {
     private String title;
     private Double voteAverrage;
     private Integer voteCount;
-    private Integer runtime;
+    private String runtime;
     private ArrayList<Genre> genres = new ArrayList<Genre>();;
     private ArrayList<Video> videos = new ArrayList<Video>();;
     private ArrayList<CastPeople> showCast = new ArrayList<CastPeople>();;
@@ -40,12 +40,20 @@ public class Movie {
             this.backDropPath = reader.getString("backdrop_path");
             this.originalTitle = reader.getString("original_title");
             this.overview = reader.getString("overview");
+            if(this.overview == null || this.overview.equals("") || this.overview.equals("null")) {
+                this.overview = "No information about the summary of this title";
+            }
             this.releaseDate = reader.getString("release_date");
             this.posterPath = reader.getString("poster_path");
             this.title = reader.getString("title");
             this.voteAverrage = reader.getDouble("vote_average");
             this.voteCount = reader.getInt("vote_count");
-            this.runtime = reader.getInt("runtime");
+
+            Integer runtimeMin = reader.getInt("runtime");
+            if( runtimeMin == null || runtimeMin < 0 ) {
+                runtimeMin = 0;
+            }
+            this.runtime = String.valueOf(runtimeMin) + " Minute(s)";
 
             JSONArray genres = reader.getJSONArray("genres");
             Genre tmpGenre;
@@ -161,11 +169,11 @@ public class Movie {
         this.voteCount = voteCount;
     }
 
-    public Integer getRuntime() {
+    public String getRuntime() {
         return runtime;
     }
 
-    public void setRuntime(Integer runtime) {
+    public void setRuntime(String runtime) {
         this.runtime = runtime;
     }
 
@@ -178,6 +186,9 @@ public class Movie {
             string.append( this.showCast.get(i).toString() );
         }
 
+        if( string.toString().equals("") ) {
+            string.append("No information about show cast of this title");
+        }
         return string.toString();
     }
 
@@ -188,6 +199,10 @@ public class Movie {
                 string.append( ", ");
             }
             string.append( this.genres.get(i).toString() );
+        }
+
+        if( string.toString().equals("") ) {
+            string.append("Undefined");
         }
 
         return string.toString();

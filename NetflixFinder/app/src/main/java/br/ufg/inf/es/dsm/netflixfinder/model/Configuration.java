@@ -19,6 +19,12 @@ public class Configuration {
     private ArrayList<String> profileSizes = new ArrayList<String>();
     private ArrayList<String> stillSizes = new ArrayList<String>();
 
+    public static final Integer VERY_SMALL = 0;
+    public static final Integer SMALL = 1;
+    public static final Integer MEDIUM = 2;
+    public static final Integer LARGE = 3;
+    public static final Integer ORIGINAL = -1;
+
     public Configuration( String jsonIn ) {
         try {
             JSONObject reader = new JSONObject(jsonIn).getJSONObject("images");
@@ -105,5 +111,31 @@ public class Configuration {
 
     public void setStillSizes(ArrayList<String> stillSizes) {
         this.stillSizes = stillSizes;
+    }
+
+    public String getSizePath( String type, Integer size ) {
+        ArrayList<String> pathSearch;
+        switch( type ) {
+            case "logo":
+                pathSearch = this.logoSizes;
+                break;
+            case "profile":
+                pathSearch = this.profileSizes;
+                break;
+            case "still":
+                pathSearch = this.stillSizes;
+                break;
+            case "poster":
+            default:
+                pathSearch = this.posterSizes;
+                break;
+        }
+
+        if( size == -1 ) {
+            Integer last = (pathSearch.size() - 1 );
+            return pathSearch.get( last );
+        }
+
+        return pathSearch.get( size );
     }
 }

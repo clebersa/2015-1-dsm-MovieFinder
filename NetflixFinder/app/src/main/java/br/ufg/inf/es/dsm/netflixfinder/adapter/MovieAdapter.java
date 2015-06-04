@@ -46,7 +46,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     public void onBindViewHolder(MovieViewHolder movieViewHolder, int i) {
         Movie ci = movieList.get(i);
         movieViewHolder.id = ci.getId();
-        String imageUrl = configuration.getImageBaseUrl() + configuration.getPosterSizes().get(1) + ci.getPosterPath();
+        String imageUrl = configuration.getImageBaseUrl() + configuration.getSizePath("poster", Configuration.SMALL) + ci.getPosterPath();
         Picasso.with(movieViewHolder.context).load(imageUrl).placeholder(R.drawable.loading_image).error(R.drawable.not_found_image).into(movieViewHolder.vPosterImage);
         //movieViewHolder.vTitle.setText(ci.getTitle());
     }

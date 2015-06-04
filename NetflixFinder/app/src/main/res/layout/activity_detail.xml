@@ -26,8 +26,7 @@
                 android:id="@+id/poster"
                 android:layout_gravity="center_horizontal|left"
                 android:layout_margin="5dp"
-                android:minWidth="134dp"
-                android:minHeight="231dp"/>
+                android:maxWidth="135dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -62,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/ratingBar"
-                android:layout_below="@+id/releaseYear"
+                android:layout_below="@+id/runtime"
                 android:layout_alignLeft="@+id/showTitle"
                 android:isIndicator="true"
                 android:numStars="5"
