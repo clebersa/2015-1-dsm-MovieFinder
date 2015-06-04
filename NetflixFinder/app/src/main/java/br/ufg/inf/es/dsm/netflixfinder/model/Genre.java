@@ -20,6 +20,11 @@ public class Genre {
         }
     }
 
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
     public Integer getId() {
         return id;
     }

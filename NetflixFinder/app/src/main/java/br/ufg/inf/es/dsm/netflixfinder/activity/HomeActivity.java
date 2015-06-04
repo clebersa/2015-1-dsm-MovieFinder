@@ -2,12 +2,13 @@ package br.ufg.inf.es.dsm.netflixfinder.activity;
 
 import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -15,25 +16,22 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-<<<<<<< HEAD
+import java.util.ArrayList;
+import java.util.List;
+
 import br.ufg.inf.es.dsm.netflixfinder.FinderApplication;
-import br.ufg.inf.es.dsm.netflixfinder.assyncTask.FilmAssyncTask;
+import br.ufg.inf.es.dsm.netflixfinder.adapter.MovieAdapter;
 import br.ufg.inf.es.dsm.netflixfinder.fragment.FilmsFragment;
 import br.ufg.inf.es.dsm.netflixfinder.R;
-import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebserviceConsumer;
 import br.ufg.inf.es.dsm.netflixfinder.model.Configuration;
-import br.ufg.inf.es.dsm.netflixfinder.model.Movie;
-import br.ufg.inf.es.dsm.netflixfinder.model.WebserviceResponse;
-=======
 import br.ufg.inf.es.dsm.netflixfinder.assyncTask.MoviesAsyncTask;
-import br.ufg.inf.es.dsm.netflixfinder.fragment.FilmsFragment;
-import br.ufg.inf.es.dsm.netflixfinder.R;
 import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebServiceConsumer;
+import br.ufg.inf.es.dsm.netflixfinder.model.Movie;
 import br.ufg.inf.es.dsm.netflixfinder.model.WebServiceResponse;
->>>>>>> 5cc90274e9b0b0583e9880b15ea44788d64ea61b
 
 
 /**
@@ -43,6 +41,7 @@ import br.ufg.inf.es.dsm.netflixfinder.model.WebServiceResponse;
 public class HomeActivity extends ActionBarActivity implements SearchView.OnQueryTextListener, WebServiceConsumer {
 
     private final static String LOG_TAG = HomeActivity.class.getSimpleName();
+    MovieAdapter movieAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,22 +53,18 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
 
         setSupportActionBar(toolbar);
 
+        RecyclerView recList = (RecyclerView) findViewById( R.id.cardList );
+        GridLayoutManager layout = new GridLayoutManager( this, 3 );
+        recList.setLayoutManager( layout );
+        recList.setHasFixedSize(true);
+
         Configuration configuration = ((FinderApplication) this.getBaseContext().getApplicationContext()).getConfiguration();
-
-        Log.d(LOG_TAG, configuration.getImageBaseUrl());
-        configuration.setImageBaseUrl("LALALALALALALALA");
-
-        configuration = ((FinderApplication) this.getBaseContext().getApplicationContext()).getConfiguration();
-        Log.d(LOG_TAG, configuration.getImageBaseUrl());
+        movieAdapter = new MovieAdapter(new ArrayList<Movie>(), configuration);
+        recList.setAdapter(movieAdapter);
 
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().add(R.id.RESULT_FRAGMENT, new FilmsFragment()).commit();
         }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
     }
 
     @Override
@@ -115,17 +110,9 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-<<<<<<< HEAD
         if( isNetworkAvailable() ){
-            FilmAssyncTask service = new FilmAssyncTask(this, this, query);
+            MoviesAsyncTask service = new MoviesAsyncTask(this, this, query);
             service.execute();
-=======
-        if(!isNetworkAvailable()){
-            Log.d( "onQueryTextSubmit", "Sem conexão com a internet" );
-        }else{
-            MoviesAsyncTask service = new MoviesAsyncTask(this);
-            service.execute(query);
->>>>>>> 5cc90274e9b0b0583e9880b15ea44788d64ea61b
         }
         return true;
     }
@@ -138,16 +125,17 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
     @Override
     public void receiveResponse(WebServiceResponse response) {
         if( response.isSuccess() ) {
-            JSONObject reader = null;
-            Integer movieId = null;
+            List<Movie> result = new ArrayList<Movie>();
             try {
-                reader = new JSONObject(response.getBody()).getJSONArray("results").getJSONObject(0);
-                movieId = reader.getInt("id");
+                JSONArray reader = new JSONObject(response.getBody()).getJSONArray("results");
+                Movie tmpMovie;
+                for( int i = 0; i < reader.length(); i++ ) {
+                    tmpMovie = new Movie( reader.getJSONObject(i).toString() );
+                    result.add(tmpMovie);
+                }
             } catch (JSONException e) {}
 
-            Intent intent = new Intent(this, DetailActivity.class);
-            intent.putExtra("movieId", movieId);
-            startActivity(intent);
+            movieAdapter.changeData( result );
         }
     }
 }

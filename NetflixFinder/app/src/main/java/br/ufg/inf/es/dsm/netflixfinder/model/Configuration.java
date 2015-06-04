@@ -13,11 +13,11 @@ import java.util.ArrayList;
  */
 public class Configuration {
     private String imageBaseUrl;
-    private ArrayList<String> backdropImageSizes = new ArrayList<>();
-    private ArrayList<String> logoSizes = new ArrayList<>();
-    private ArrayList<String> posterSizes = new ArrayList<>();
-    private ArrayList<String> profileSizes = new ArrayList<>();
-    private ArrayList<String> stillSizes = new ArrayList<>();
+    private ArrayList<String> backdropImageSizes = new ArrayList<String>();
+    private ArrayList<String> logoSizes = new ArrayList<String>();
+    private ArrayList<String> posterSizes = new ArrayList<String>();
+    private ArrayList<String> profileSizes = new ArrayList<String>();
+    private ArrayList<String> stillSizes = new ArrayList<String>();
 
     public Configuration( String jsonIn ) {
         try {

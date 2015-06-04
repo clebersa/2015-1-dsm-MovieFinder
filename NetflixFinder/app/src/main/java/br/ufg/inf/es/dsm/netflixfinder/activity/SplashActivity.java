@@ -3,17 +3,18 @@ package br.ufg.inf.es.dsm.netflixfinder.activity;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import br.ufg.inf.es.dsm.netflixfinder.FinderApplication;
 import br.ufg.inf.es.dsm.netflixfinder.R;
 import br.ufg.inf.es.dsm.netflixfinder.assyncTask.ConfigurationAssyncTask;
-import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebserviceConsumer;
+import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebServiceConsumer;
 import br.ufg.inf.es.dsm.netflixfinder.model.Configuration;
-import br.ufg.inf.es.dsm.netflixfinder.model.WebserviceResponse;
+import br.ufg.inf.es.dsm.netflixfinder.model.WebServiceResponse;
 
-public class SplashActivity extends ActionBarActivity implements WebserviceConsumer {
+public class SplashActivity extends ActionBarActivity implements WebServiceConsumer {
 
     @Override
     protected void onStart() {
@@ -51,7 +52,7 @@ public class SplashActivity extends ActionBarActivity implements WebserviceConsu
     }
 
     @Override
-    public void receiveResponse(WebserviceResponse response) {
+    public void receiveResponse(WebServiceResponse response) {
         if( response.isSuccess() ) {
             Configuration configuration = new Configuration( response.getBody() );
             ((FinderApplication) this.getBaseContext().getApplicationContext()).setConfiguration(configuration);

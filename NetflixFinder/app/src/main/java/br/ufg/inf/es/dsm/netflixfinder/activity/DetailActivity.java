@@ -13,9 +13,11 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import br.ufg.inf.es.dsm.netflixfinder.FinderApplication;
 import br.ufg.inf.es.dsm.netflixfinder.R;
 import br.ufg.inf.es.dsm.netflixfinder.assyncTask.MovieDetailedAsyncTask;
 import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebServiceConsumer;
+import br.ufg.inf.es.dsm.netflixfinder.model.Configuration;
 import br.ufg.inf.es.dsm.netflixfinder.model.Movie;
 import br.ufg.inf.es.dsm.netflixfinder.model.WebServiceResponse;
 
@@ -32,21 +34,18 @@ public class DetailActivity extends ActionBarActivity implements WebServiceConsu
                 "Loading application View, please wait...", false, false);
 
         Integer movieId = getIntent().getIntExtra( "movieId", 0 );
-<<<<<<< HEAD
-        MovieDetailAssyncTask service = new MovieDetailAssyncTask(this, this, movieId);
+        MovieDetailedAsyncTask service = new MovieDetailedAsyncTask(this, this, movieId);
         service.execute();
-=======
-        MovieDetailedAsyncTask service = new MovieDetailedAsyncTask(this);
-        service.execute(movieId);
->>>>>>> 5cc90274e9b0b0583e9880b15ea44788d64ea61b
     }
 
     @Override
     public void receiveResponse(WebServiceResponse response) {
         if( !response.isSuccess() ) {
             Log.d("receiveResponse", "Erro na requisição");
+            return;
         }
 
+        Configuration configuration = ((FinderApplication) this.getBaseContext().getApplicationContext()).getConfiguration();
         setContentView(R.layout.activity_detail);
         movie = new Movie( response.getBody() );
 
@@ -63,11 +62,12 @@ public class DetailActivity extends ActionBarActivity implements WebServiceConsu
             }
         });
 
-        ImageView poster = (ImageView) findViewById(R.id.poster );
-        Picasso.with(this).load( movie.getPosterPath() ).into(poster);
+        String imgUrl = configuration.getImageBaseUrl() + configuration.getPosterSizes().get(2) + movie.getPosterPath();
+        ImageView poster = (ImageView) findViewById(R.id.poster);
+        Picasso.with(this).load( imgUrl ).placeholder(R.drawable.loading_image).error(R.drawable.not_found_image).into(poster);
 
         TextView showTitle = (TextView) findViewById( R.id.showTitle );
-        showTitle.setText( movie.getTitle() );
+        showTitle.setText(movie.getTitle());
 
         TextView releaseYear = (TextView) findViewById( R.id.releaseYear );
         releaseYear.setText( movie.getReleaseDate() );
@@ -79,8 +79,14 @@ public class DetailActivity extends ActionBarActivity implements WebServiceConsu
         RatingBar ratingBar = (RatingBar) findViewById( R.id.ratingBar );
         ratingBar.setRating(rating);
 
-        TextView summary = (TextView) findViewById( R.id.summary );
-        summary.setText( movie.getOverview() );
+        TextView summary = (TextView) findViewById( R.id.summaryValue );
+        summary.setText(movie.getOverview());
+
+        TextView showCast = (TextView) findViewById(R.id.showCastValue);
+        showCast.setText(movie.getShowCastString());
+
+        TextView genres = (TextView) findViewById(R.id.genres);
+        genres.setText(movie.getGenresString());
 
         progressDialog.dismiss();
     }

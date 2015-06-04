@@ -3,23 +3,24 @@ package br.ufg.inf.es.dsm.netflixfinder.assyncTask;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.github.kevinsawicki.http.HttpRequest;
 
 import br.ufg.inf.es.dsm.netflixfinder.R;
-import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebserviceConsumer;
-import br.ufg.inf.es.dsm.netflixfinder.model.WebserviceResponse;
+import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebServiceConsumer;
+import br.ufg.inf.es.dsm.netflixfinder.model.WebServiceResponse;
 
 /**
  * Created by bruno on 6/3/15.
  */
-public abstract class AbstractAssyncTask<T> extends AsyncTask<T, Void, WebserviceResponse> {
+public abstract class AbstractAssyncTask<T> extends AsyncTask<T, Void, WebServiceResponse> {
     protected Context context;
-    private WebserviceConsumer handler;
-    private WebserviceResponse response = new WebserviceResponse();
+    private WebServiceConsumer handler;
+    private WebServiceResponse response = new WebServiceResponse();
     protected Uri.Builder uriBuilder;
 
-    public AbstractAssyncTask(WebserviceConsumer handler, Context context) {
+    public AbstractAssyncTask(WebServiceConsumer handler, Context context) {
         this.handler = handler;
         this.context = context;
     }
@@ -38,8 +39,10 @@ public abstract class AbstractAssyncTask<T> extends AsyncTask<T, Void, Webservic
     }
 
     @Override
-    protected WebserviceResponse doInBackground(T... params) {
-        HttpRequest response  = HttpRequest.get( uriBuilder.build().toString() );
+    protected WebServiceResponse doInBackground(T... params) {
+        String getUrl = uriBuilder.build().toString();
+        Log.d("APIEXECUTE", getUrl);
+        HttpRequest response  = HttpRequest.get( getUrl );
         this.response.setResponseCode(response.code());
         this.response.setBody(response.body());
 
@@ -47,7 +50,7 @@ public abstract class AbstractAssyncTask<T> extends AsyncTask<T, Void, Webservic
     }
 
     @Override
-    protected void onPostExecute(WebserviceResponse response) {
+    protected void onPostExecute(WebServiceResponse response) {
         handler.receiveResponse(response);
     }
 

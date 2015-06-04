@@ -5,12 +5,6 @@ import android.util.Log;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-<<<<<<< HEAD
-import java.io.Serializable;
-import java.lang.reflect.Array;
-=======
->>>>>>> 5cc90274e9b0b0583e9880b15ea44788d64ea61b
 import java.util.ArrayList;
 
 /**
@@ -18,7 +12,6 @@ import java.util.ArrayList;
  * Edited by Cleber on 03/06/2015.
  */
 public class Movie {
-    private final String imageBaseUrl = "https://image.tmdb.org/t/p/w342/";
     private Integer id;
     private Boolean isAdult;
     private String backDropPath;
@@ -30,10 +23,10 @@ public class Movie {
     private Double voteAverrage;
     private Integer voteCount;
     private Integer runtime;
-    private ArrayList<Genre> genres = new ArrayList<>();;
-    private ArrayList<Video> videos = new ArrayList<>();;
-    private ArrayList<CastPeople> showCast = new ArrayList<>();;
-    private ArrayList<String> alternativeTitles = new ArrayList<>();;
+    private ArrayList<Genre> genres = new ArrayList<Genre>();;
+    private ArrayList<Video> videos = new ArrayList<Video>();;
+    private ArrayList<CastPeople> showCast = new ArrayList<CastPeople>();;
+    private ArrayList<String> alternativeTitles = new ArrayList<String>();;
 
     public Movie() {
 
@@ -70,7 +63,7 @@ public class Movie {
 
             JSONArray castPeoples = reader.getJSONObject("credits").getJSONArray("cast");
             CastPeople tmpCastPeople;
-            for( int i = 0; i < videos.length(); i++ ) {
+            for( int i = 0; i < castPeoples.length(); i++ ) {
                 tmpCastPeople = new CastPeople( castPeoples.getJSONObject(i).toString() );
                 this.showCast.add( tmpCastPeople );
             }
@@ -104,7 +97,7 @@ public class Movie {
     }
 
     public String getBackDropPath() {
-        return imageBaseUrl + backDropPath;
+        return backDropPath;
     }
 
     public void setBackDropPath(String backDropPath) {
@@ -137,7 +130,7 @@ public class Movie {
     }
 
     public String getPosterPath() {
-        return imageBaseUrl + posterPath;
+        return posterPath;
     }
 
     public void setPosterPath(String posterPath) {
@@ -176,4 +169,27 @@ public class Movie {
         this.runtime = runtime;
     }
 
+    public String getShowCastString() {
+        StringBuilder string = new StringBuilder();
+        for( int i = 0; i < this.showCast.size(); i++ ) {
+            if( i > 0 ) {
+                string.append( ", ");
+            }
+            string.append( this.showCast.get(i).toString() );
+        }
+
+        return string.toString();
+    }
+
+    public String getGenresString() {
+        StringBuilder string = new StringBuilder();
+        for( int i = 0; i < this.genres.size(); i++ ) {
+            if( i > 0 ) {
+                string.append( ", ");
+            }
+            string.append( this.genres.get(i).toString() );
+        }
+
+        return string.toString();
+    }
 }

@@ -25,7 +25,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/poster"
                 android:layout_gravity="center_horizontal|left"
-                android:layout_margin="5dp" />
+                android:layout_margin="5dp"
+                android:minWidth="134dp"
+                android:minHeight="231dp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -43,8 +45,6 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Release Year"
                 android:id="@+id/releaseYear"
-                android:layout_alignParentEnd="false"
-                android:layout_alignParentStart="false"
                 android:layout_below="@+id/showTitle"
                 android:layout_alignLeft="@+id/showTitle" />
 
@@ -70,13 +70,51 @@
                 style="@style/netflixRatingBar"/>
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Genres"
+                android:id="@+id/genres"
+                android:layout_below="@+id/ratingBar"
+                android:layout_alignLeft="@+id/showTitle" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Summary:"
+                android:id="@+id/summaryLabel"
+                android:layout_below="@+id/poster"
+                android:layout_alignLeft="@+id/poster" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Summary"
-                android:id="@+id/summary"
-                android:layout_below="@+id/poster"
+                android:id="@+id/summaryValue"
+                android:layout_below="@+id/summaryLabel"
                 android:layout_gravity="right"
+                android:layout_alignLeft="@+id/poster"
+                android:paddingBottom="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Show cast:"
+                android:id="@+id/showCastLabel"
+                android:layout_below="@+id/summaryValue"
                 android:layout_alignLeft="@+id/poster" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Show cast"
+                android:id="@+id/showCastValue"
+                android:paddingBottom="10dp"
+                android:layout_alignLeft="@+id/poster"
+                android:layout_below="@+id/showCastLabel" />
 
         </RelativeLayout>
     </ScrollView>

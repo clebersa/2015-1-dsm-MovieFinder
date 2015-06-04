@@ -26,6 +26,11 @@ public class CastPeople {
         }
     }
 
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
     public Integer getId() {
         return id;
     }
