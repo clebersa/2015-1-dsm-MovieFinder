@@ -30,8 +30,8 @@ public class DetailActivity extends ActionBarActivity implements WebServiceConsu
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-         progressDialog = ProgressDialog.show(DetailActivity.this,"Loading...",
-                "Loading information about the movie...", false, false);
+         progressDialog = ProgressDialog.show(DetailActivity.this,getString(R.string.loading),
+                getString(R.string.loading_detail), false, false);
 
         Integer movieId = getIntent().getIntExtra( "movieId", 0 );
         MovieDetailedAsyncTask service = new MovieDetailedAsyncTask(this, this, movieId);

@@ -6,6 +6,9 @@
     <string name="action_settings">Settings</string>
     <string name="api_key">b4bcadd043cecc365ee67a9aceb83937</string>
 
+    <string name="loading">Loaging...</string>
+    <string name="loading_detail">Loading information about the movie...</string>
+    <string name="searching_movies">Searching movies with the given name...</string>
     <string name="sortMode">sort_mode</string>
     <string-array name="sortModes">
         <item>Name (A->Z)</item>

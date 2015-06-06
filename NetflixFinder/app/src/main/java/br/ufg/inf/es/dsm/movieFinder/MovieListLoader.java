@@ -87,7 +87,6 @@ public class MovieListLoader implements OnMoreListener, WebServiceConsumer {
                     isAllLoaded = true;
                 }
             } catch (JSONException e) {}
-            sortList();
             recList.getAdapter().notifyDataSetChanged();
         }
 

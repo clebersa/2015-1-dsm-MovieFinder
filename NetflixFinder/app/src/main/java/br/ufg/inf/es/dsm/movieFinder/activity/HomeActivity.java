@@ -87,7 +87,7 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
         switch(item.getItemId()){
             case R.id.action_order_list:
                 ListSortFragment lsf = new ListSortFragment();
-                lsf.show(getFragmentManager(), "Dont know");
+                lsf.show(getFragmentManager(), "ListSortFragment");
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -103,8 +103,8 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
 
         getCurrentFocus().getRootView().clearFocus();
 
-        ringProgressDialog = ProgressDialog.show(this, "Wait", "Searching movies with \""
-                + query + "\" in the name...", true);
+        ringProgressDialog = ProgressDialog.show(this, getString(R.string.loading_detail),
+                getString(R.string.searching_movies), true);
         ringProgressDialog.show();
 
         return true;
