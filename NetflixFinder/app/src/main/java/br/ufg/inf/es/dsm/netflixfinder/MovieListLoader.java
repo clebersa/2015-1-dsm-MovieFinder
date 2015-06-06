@@ -14,6 +14,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import br.ufg.inf.es.dsm.netflixfinder.activity.SortMethod;
@@ -74,10 +76,8 @@ public class MovieListLoader implements OnMoreListener, WebServiceConsumer {
                 JSONObject reader = new JSONObject(response.getBody());
 
                 JSONArray moviesResult = reader.getJSONArray("results");
-                Movie tmpMovie;
                 for( int i = 0; i < moviesResult.length(); i++ ) {
-                    tmpMovie = new Movie( moviesResult.getJSONObject(i).toString() );
-                    adapterMovies.add( tmpMovie );
+                    adapterMovies.add(new Movie( moviesResult.getJSONObject(i).toString() ));
                 }
 
                 Integer totalPages = reader.getInt("total_pages");
@@ -87,7 +87,7 @@ public class MovieListLoader implements OnMoreListener, WebServiceConsumer {
                     isAllLoaded = true;
                 }
             } catch (JSONException e) {}
-
+            sortList();
             recList.getAdapter().notifyDataSetChanged();
         }
 
@@ -103,26 +103,65 @@ public class MovieListLoader implements OnMoreListener, WebServiceConsumer {
         SortMethod sortMode = SortMethod.valueOf(preferences.getString(
                 context.getString(R.string.sortMode), ""));
 
+        MovieAdapter adapter = (MovieAdapter) recList.getAdapter();
+        List<Movie> movieList = adapter.getMovieList();
+        Comparator<Movie> comparator = null;
+
         switch (sortMode){
             case NAME:
                 Log.d("SORT", "The list will be sorted by name.");
 
+                comparator = new Comparator<Movie>() {
+                    @Override
+                    public int compare(Movie lhs, Movie rhs) {
+                        return lhs.getOriginalTitle().compareTo(rhs.getOriginalTitle());
+                    }
+                };
                 break;
             case NAME_INVERSE:
                 Log.d("SORT", "The list will be sorted by name (inverse)");
+                comparator = new Comparator<Movie>() {
+                    @Override
+                    public int compare(Movie lhs, Movie rhs) {
+                        return rhs.getOriginalTitle().compareTo(lhs.getOriginalTitle());
+                    }
+                };
                 break;
             case YEAR:
                 Log.d("SORT", "The list will be sorted by release year (newest to oldest).");
+                comparator = new Comparator<Movie>() {
+                    @Override
+                    public int compare(Movie lhs, Movie rhs) {
+                        return rhs.getReleaseDate().compareTo(lhs.getReleaseDate());
+                    }
+                };
                 break;
             case YEAR_INVERSE:
                 Log.d("SORT", "The list will be sorted by release year (oldest to newest).");
+                comparator = new Comparator<Movie>() {
+                    @Override
+                    public int compare(Movie lhs, Movie rhs) {
+                        return lhs.getReleaseDate().compareTo(rhs.getReleaseDate());
+                    }
+                };
                 break;
             case RATING:
                 Log.d("SORT", "The list will be sorted by rating.");
+                comparator = new Comparator<Movie>() {
+                    @Override
+                    public int compare(Movie lhs, Movie rhs) {
+                        if(lhs.getVoteAverrage() == rhs.getVoteAverrage()){
+                            return 0;
+                        }
+                        return (rhs.getVoteAverrage() < lhs.getVoteAverrage())? -1 : 1;
+                    }
+                };
                 break;
             default:
                 Log.d("SORT", "The list will not be sorted.");
         }
+        Collections.sort(movieList, comparator);
+        adapter.notifyDataSetChanged();
 
     }
 
