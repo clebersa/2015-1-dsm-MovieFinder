@@ -1,26 +1,21 @@
-package br.ufg.inf.es.dsm.netflixfinder.adapter;
+package br.ufg.inf.es.dsm.movieFinder.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.DataSetObserver;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import br.ufg.inf.es.dsm.netflixfinder.FinderApplication;
-import br.ufg.inf.es.dsm.netflixfinder.R;
-import br.ufg.inf.es.dsm.netflixfinder.activity.DetailActivity;
-import br.ufg.inf.es.dsm.netflixfinder.model.Configuration;
-import br.ufg.inf.es.dsm.netflixfinder.model.Movie;
+import br.ufg.inf.es.dsm.movieFinder.R;
+import br.ufg.inf.es.dsm.movieFinder.activity.DetailActivity;
+import br.ufg.inf.es.dsm.movieFinder.model.Configuration;
+import br.ufg.inf.es.dsm.movieFinder.model.Movie;
 
 /**
  * Created by alunoinf on 04/06/2015.

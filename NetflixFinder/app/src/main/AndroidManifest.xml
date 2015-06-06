@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.ufg.inf.es.dsm.netflixfinder" >
+    package="br.ufg.inf.es.dsm.movieFinder" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".FinderApplication"
+        android:name="br.ufg.inf.es.dsm.movieFinder.FinderApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme" >
 
         <activity
-            android:name=".activity.SplashActivity"
+            android:name="br.ufg.inf.es.dsm.movieFinder.activity.SplashActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
         </activity>
 
         <activity
-            android:name=".activity.HomeActivity"
+            android:name="br.ufg.inf.es.dsm.movieFinder.activity.HomeActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,7 +37,7 @@
                 android:resource="@xml/searchable" />
         </activity>
 
-        <activity android:name=".activity.DetailActivity" >
+        <activity android:name="br.ufg.inf.es.dsm.movieFinder.activity.DetailActivity" >
         </activity>
     </application>
 

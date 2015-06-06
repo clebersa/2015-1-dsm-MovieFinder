@@ -1,9 +1,8 @@
-package br.ufg.inf.es.dsm.netflixfinder;
+package br.ufg.inf.es.dsm.movieFinder;
 
 import android.app.Application;
-import android.util.Log;
 
-import br.ufg.inf.es.dsm.netflixfinder.model.Configuration;
+import br.ufg.inf.es.dsm.movieFinder.model.Configuration;
 
 /**
  * Created by bruno on 6/3/15.

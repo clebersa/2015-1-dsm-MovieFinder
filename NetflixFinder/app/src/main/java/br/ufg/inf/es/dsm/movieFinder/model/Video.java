@@ -1,10 +1,7 @@
-package br.ufg.inf.es.dsm.netflixfinder.model;
+package br.ufg.inf.es.dsm.movieFinder.model;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 /**
  * Created by bruno on 6/3/15.

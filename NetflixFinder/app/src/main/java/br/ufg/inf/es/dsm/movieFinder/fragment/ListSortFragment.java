@@ -1,4 +1,4 @@
-package br.ufg.inf.es.dsm.netflixfinder.fragment;
+package br.ufg.inf.es.dsm.movieFinder.fragment;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -9,9 +9,9 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.ListView;
 
-import br.ufg.inf.es.dsm.netflixfinder.R;
-import br.ufg.inf.es.dsm.netflixfinder.activity.HomeActivity;
-import br.ufg.inf.es.dsm.netflixfinder.model.SortMethod;
+import br.ufg.inf.es.dsm.movieFinder.R;
+import br.ufg.inf.es.dsm.movieFinder.activity.HomeActivity;
+import br.ufg.inf.es.dsm.movieFinder.model.SortMethod;
 
 public class ListSortFragment extends DialogFragment {
 

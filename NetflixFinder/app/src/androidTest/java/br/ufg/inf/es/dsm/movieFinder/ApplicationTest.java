@@ -1,4 +1,4 @@
-package br.ufg.inf.es.dsm.netflixfinder;
+package br.ufg.inf.es.dsm.movieFinder;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -1,4 +1,4 @@
-package br.ufg.inf.es.dsm.netflixfinder.model;
+package br.ufg.inf.es.dsm.movieFinder.model;
 
 import org.json.JSONException;
 import org.json.JSONObject;

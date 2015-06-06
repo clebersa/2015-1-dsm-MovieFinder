@@ -1,6 +1,4 @@
-package br.ufg.inf.es.dsm.netflixfinder.model;
-
-import android.util.Log;
+package br.ufg.inf.es.dsm.movieFinder.model;
 
 import org.json.JSONArray;
 import org.json.JSONException;

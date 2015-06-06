@@ -1,4 +1,4 @@
-package br.ufg.inf.es.dsm.netflixfinder.assyncTask;
+package br.ufg.inf.es.dsm.movieFinder.assyncTask;
 
 import android.content.Context;
 import android.net.Uri;
@@ -7,9 +7,9 @@ import android.util.Log;
 
 import com.github.kevinsawicki.http.HttpRequest;
 
-import br.ufg.inf.es.dsm.netflixfinder.R;
-import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebServiceConsumer;
-import br.ufg.inf.es.dsm.netflixfinder.model.WebServiceResponse;
+import br.ufg.inf.es.dsm.movieFinder.R;
+import br.ufg.inf.es.dsm.movieFinder.interfaces.WebServiceConsumer;
+import br.ufg.inf.es.dsm.movieFinder.model.WebServiceResponse;
 
 /**
  * Created by bruno on 6/3/15.

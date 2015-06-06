@@ -1,6 +1,6 @@
-package br.ufg.inf.es.dsm.netflixfinder.interfaces;
+package br.ufg.inf.es.dsm.movieFinder.interfaces;
 
-import br.ufg.inf.es.dsm.netflixfinder.model.WebServiceResponse;
+import br.ufg.inf.es.dsm.movieFinder.model.WebServiceResponse;
 
 /**
  * Created by Bruno on 03/06/2015.

@@ -1,11 +1,10 @@
-package br.ufg.inf.es.dsm.netflixfinder;
+package br.ufg.inf.es.dsm.movieFinder;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
-import android.view.inputmethod.InputMethodManager;
 
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
@@ -18,13 +17,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import br.ufg.inf.es.dsm.netflixfinder.activity.HomeActivity;
-import br.ufg.inf.es.dsm.netflixfinder.model.SortMethod;
-import br.ufg.inf.es.dsm.netflixfinder.adapter.MovieAdapter;
-import br.ufg.inf.es.dsm.netflixfinder.assyncTask.MoviesAsyncTask;
-import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebServiceConsumer;
-import br.ufg.inf.es.dsm.netflixfinder.model.Movie;
-import br.ufg.inf.es.dsm.netflixfinder.model.WebServiceResponse;
+import br.ufg.inf.es.dsm.movieFinder.activity.HomeActivity;
+import br.ufg.inf.es.dsm.movieFinder.model.SortMethod;
+import br.ufg.inf.es.dsm.movieFinder.adapter.MovieAdapter;
+import br.ufg.inf.es.dsm.movieFinder.assyncTask.MoviesAsyncTask;
+import br.ufg.inf.es.dsm.movieFinder.interfaces.WebServiceConsumer;
+import br.ufg.inf.es.dsm.movieFinder.model.Movie;
+import br.ufg.inf.es.dsm.movieFinder.model.WebServiceResponse;
 
 /**
  * Created by Bruno on 04/06/2015.

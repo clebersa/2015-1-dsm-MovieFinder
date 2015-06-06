@@ -9,7 +9,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "br.ufg.inf.es.dsm.netflixfinder"
+        applicationId "br.ufg.inf.es.dsm.movieFinder"
         minSdkVersion 11
         targetSdkVersion 21
         versionCode 1

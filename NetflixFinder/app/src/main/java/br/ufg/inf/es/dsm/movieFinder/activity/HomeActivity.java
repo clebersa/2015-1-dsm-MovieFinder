@@ -1,4 +1,4 @@
-package br.ufg.inf.es.dsm.netflixfinder.activity;
+package br.ufg.inf.es.dsm.movieFinder.activity;
 
 import android.app.ProgressDialog;
 import android.app.SearchManager;
@@ -14,21 +14,19 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.inputmethod.InputMethodManager;
 
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
 
 import java.util.ArrayList;
 
-import br.ufg.inf.es.dsm.netflixfinder.FinderApplication;
-import br.ufg.inf.es.dsm.netflixfinder.MovieListLoader;
-import br.ufg.inf.es.dsm.netflixfinder.adapter.MovieAdapter;
-import br.ufg.inf.es.dsm.netflixfinder.fragment.FilmsFragment;
-import br.ufg.inf.es.dsm.netflixfinder.R;
-import br.ufg.inf.es.dsm.netflixfinder.fragment.ListSortFragment;
-import br.ufg.inf.es.dsm.netflixfinder.model.Configuration;
-import br.ufg.inf.es.dsm.netflixfinder.model.Movie;
-import br.ufg.inf.es.dsm.netflixfinder.model.SortMethod;
+import br.ufg.inf.es.dsm.movieFinder.FinderApplication;
+import br.ufg.inf.es.dsm.movieFinder.MovieListLoader;
+import br.ufg.inf.es.dsm.movieFinder.adapter.MovieAdapter;
+import br.ufg.inf.es.dsm.movieFinder.R;
+import br.ufg.inf.es.dsm.movieFinder.fragment.ListSortFragment;
+import br.ufg.inf.es.dsm.movieFinder.model.Configuration;
+import br.ufg.inf.es.dsm.movieFinder.model.Movie;
+import br.ufg.inf.es.dsm.movieFinder.model.SortMethod;
 
 
 /**

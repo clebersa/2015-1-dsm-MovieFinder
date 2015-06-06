@@ -1,4 +1,4 @@
-package br.ufg.inf.es.dsm.netflixfinder.activity;
+package br.ufg.inf.es.dsm.movieFinder.activity;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
@@ -13,13 +13,13 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import br.ufg.inf.es.dsm.netflixfinder.FinderApplication;
-import br.ufg.inf.es.dsm.netflixfinder.R;
-import br.ufg.inf.es.dsm.netflixfinder.assyncTask.MovieDetailedAsyncTask;
-import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebServiceConsumer;
-import br.ufg.inf.es.dsm.netflixfinder.model.Configuration;
-import br.ufg.inf.es.dsm.netflixfinder.model.Movie;
-import br.ufg.inf.es.dsm.netflixfinder.model.WebServiceResponse;
+import br.ufg.inf.es.dsm.movieFinder.FinderApplication;
+import br.ufg.inf.es.dsm.movieFinder.R;
+import br.ufg.inf.es.dsm.movieFinder.assyncTask.MovieDetailedAsyncTask;
+import br.ufg.inf.es.dsm.movieFinder.interfaces.WebServiceConsumer;
+import br.ufg.inf.es.dsm.movieFinder.model.Configuration;
+import br.ufg.inf.es.dsm.movieFinder.model.Movie;
+import br.ufg.inf.es.dsm.movieFinder.model.WebServiceResponse;
 
 
 public class DetailActivity extends ActionBarActivity implements WebServiceConsumer {

@@ -1,4 +1,4 @@
-package br.ufg.inf.es.dsm.netflixfinder.model;
+package br.ufg.inf.es.dsm.movieFinder.model;
 
 /**
  * Created by Bruno on 03/06/2015.

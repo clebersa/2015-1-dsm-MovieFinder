@@ -1,4 +1,4 @@
-package br.ufg.inf.es.dsm.netflixfinder.activity;
+package br.ufg.inf.es.dsm.movieFinder.activity;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -7,12 +7,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import br.ufg.inf.es.dsm.netflixfinder.FinderApplication;
-import br.ufg.inf.es.dsm.netflixfinder.R;
-import br.ufg.inf.es.dsm.netflixfinder.assyncTask.ConfigurationAssyncTask;
-import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebServiceConsumer;
-import br.ufg.inf.es.dsm.netflixfinder.model.Configuration;
-import br.ufg.inf.es.dsm.netflixfinder.model.WebServiceResponse;
+import br.ufg.inf.es.dsm.movieFinder.FinderApplication;
+import br.ufg.inf.es.dsm.movieFinder.R;
+import br.ufg.inf.es.dsm.movieFinder.assyncTask.ConfigurationAssyncTask;
+import br.ufg.inf.es.dsm.movieFinder.interfaces.WebServiceConsumer;
+import br.ufg.inf.es.dsm.movieFinder.model.Configuration;
+import br.ufg.inf.es.dsm.movieFinder.model.WebServiceResponse;
 
 public class SplashActivity extends ActionBarActivity implements WebServiceConsumer {
 
