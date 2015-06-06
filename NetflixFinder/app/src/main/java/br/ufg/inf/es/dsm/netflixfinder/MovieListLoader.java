@@ -2,10 +2,10 @@ package br.ufg.inf.es.dsm.netflixfinder;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
 
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
@@ -18,7 +18,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import br.ufg.inf.es.dsm.netflixfinder.activity.SortMethod;
+import br.ufg.inf.es.dsm.netflixfinder.activity.HomeActivity;
+import br.ufg.inf.es.dsm.netflixfinder.model.SortMethod;
 import br.ufg.inf.es.dsm.netflixfinder.adapter.MovieAdapter;
 import br.ufg.inf.es.dsm.netflixfinder.assyncTask.MoviesAsyncTask;
 import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebServiceConsumer;
@@ -90,6 +91,8 @@ public class MovieListLoader implements OnMoreListener, WebServiceConsumer {
             sortList();
             recList.getAdapter().notifyDataSetChanged();
         }
+
+        ((HomeActivity)context).getProgressDialog().dismiss();
 
         recList.hideMoreProgress();
         recList.setLoadingMore(false);

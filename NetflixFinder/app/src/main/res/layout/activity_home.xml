@@ -21,10 +21,4 @@
         app:recyclerPadding="16dp"
         app:scrollbarStyle="insideInset"/>
 
-    <FrameLayout
-        android:id="@+id/RESULT_FRAGMENT"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"/>
-
 </LinearLayout>

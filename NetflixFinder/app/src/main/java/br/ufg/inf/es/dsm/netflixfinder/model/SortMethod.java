@@ -1,4 +1,4 @@
-package br.ufg.inf.es.dsm.netflixfinder.activity;
+package br.ufg.inf.es.dsm.netflixfinder.model;
 
 /**
  * Created by cleber on 05/06/15.

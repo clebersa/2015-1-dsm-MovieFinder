@@ -31,7 +31,7 @@ public class DetailActivity extends ActionBarActivity implements WebServiceConsu
         super.onCreate(savedInstanceState);
 
          progressDialog = ProgressDialog.show(DetailActivity.this,"Loading...",
-                "Loading application View, please wait...", false, false);
+                "Loading information about the movie...", false, false);
 
         Integer movieId = getIntent().getIntExtra( "movieId", 0 );
         MovieDetailedAsyncTask service = new MovieDetailedAsyncTask(this, this, movieId);
@@ -41,7 +41,7 @@ public class DetailActivity extends ActionBarActivity implements WebServiceConsu
     @Override
     public void receiveResponse(WebServiceResponse response) {
         if( !response.isSuccess() ) {
-            Log.d("receiveResponse", "Erro na requisição");
+            Log.d("receiveResponse", "Request error.");
             return;
         }
 

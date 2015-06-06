@@ -1,33 +1,24 @@
 package br.ufg.inf.es.dsm.netflixfinder.activity;
 
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.List;
 
 import br.ufg.inf.es.dsm.netflixfinder.FinderApplication;
 import br.ufg.inf.es.dsm.netflixfinder.MovieListLoader;
@@ -36,10 +27,8 @@ import br.ufg.inf.es.dsm.netflixfinder.fragment.FilmsFragment;
 import br.ufg.inf.es.dsm.netflixfinder.R;
 import br.ufg.inf.es.dsm.netflixfinder.fragment.ListSortFragment;
 import br.ufg.inf.es.dsm.netflixfinder.model.Configuration;
-import br.ufg.inf.es.dsm.netflixfinder.assyncTask.MoviesAsyncTask;
-import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebServiceConsumer;
 import br.ufg.inf.es.dsm.netflixfinder.model.Movie;
-import br.ufg.inf.es.dsm.netflixfinder.model.WebServiceResponse;
+import br.ufg.inf.es.dsm.netflixfinder.model.SortMethod;
 
 
 /**
@@ -51,6 +40,7 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
     private final static String LOG_TAG = HomeActivity.class.getSimpleName();
     SuperRecyclerView recList;
     MovieListLoader loader;
+    private ProgressDialog ringProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +67,6 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
             SharedPreferences.Editor editor = preferences.edit();
             editor.putString(getString(R.string.sortMode), SortMethod.NAME.toString());
             editor.commit();
-        }
-
-        if(savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction().add(R.id.RESULT_FRAGMENT, new FilmsFragment()).commit();
         }
     }
 
@@ -117,9 +103,11 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
     public boolean onQueryTextSubmit(String query) {
         loader = new MovieListLoader( this, recList, query );
 
-        //Hide virtual keyboard
-        InputMethodManager inputManager = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
-        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        getCurrentFocus().getRootView().clearFocus();
+
+        ringProgressDialog = ProgressDialog.show(this, "Wait", "Searching movies with \""
+                + query + "\" in the name...", true);
+        ringProgressDialog.show();
 
         return true;
     }
@@ -134,5 +122,9 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
         if(loader != null) {
             loader.sortList();
         }
+    }
+
+    public ProgressDialog getProgressDialog(){
+        return ringProgressDialog;
     }
 }

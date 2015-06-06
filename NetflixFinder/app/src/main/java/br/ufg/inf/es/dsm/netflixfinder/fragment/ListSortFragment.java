@@ -11,7 +11,7 @@ import android.widget.ListView;
 
 import br.ufg.inf.es.dsm.netflixfinder.R;
 import br.ufg.inf.es.dsm.netflixfinder.activity.HomeActivity;
-import br.ufg.inf.es.dsm.netflixfinder.activity.SortMethod;
+import br.ufg.inf.es.dsm.netflixfinder.model.SortMethod;
 
 public class ListSortFragment extends DialogFragment {
 
