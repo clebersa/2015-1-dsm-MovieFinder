@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
 
@@ -55,8 +57,11 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
         recList.setLayoutManager(layout);
         recList.getRecyclerView().setHasFixedSize(true);
 
+        TextView noTitle = (TextView) findViewById( R.id.no_title_founded );
+        noTitle.setVisibility(View.GONE);
+
         Configuration configuration = ((FinderApplication) this.getBaseContext().getApplicationContext()).getConfiguration();
-        MovieAdapter movieAdapter = new MovieAdapter(new ArrayList<Movie>(), configuration);
+        MovieAdapter movieAdapter = new MovieAdapter(new ArrayList<Movie>(), configuration, noTitle);
         recList.setAdapter(movieAdapter);
 
         SharedPreferences preferences = getSharedPreferences(
@@ -66,6 +71,8 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
             editor.putString(getString(R.string.sortMode), SortMethod.NAME.toString());
             editor.commit();
         }
+
+
     }
 
     @Override

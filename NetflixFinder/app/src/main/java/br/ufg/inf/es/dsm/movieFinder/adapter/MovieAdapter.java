@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
@@ -23,18 +24,24 @@ import br.ufg.inf.es.dsm.movieFinder.model.Movie;
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
     private List<Movie> movieList;
     private Configuration configuration;
+    private TextView noTitle;
 
-    public MovieAdapter(List<Movie> movieList, Configuration configuration ) {
+    public MovieAdapter(List<Movie> movieList, Configuration configuration, TextView noTitle ) {
         this.movieList = movieList;
         this.configuration = configuration;
+        this.noTitle = noTitle;
     }
 
     public List<Movie> getMovieList() {
         return movieList;
     }
 
-    public void changeData( List<Movie> movieList ) {
-        this.movieList = movieList;
+    public void refreshData() {
+        if( this.movieList.size() <= 0 ) {
+            this.noTitle.setVisibility( View.VISIBLE );
+        } else {
+            this.noTitle.setVisibility( View.GONE );
+        }
         notifyDataSetChanged();
     }
 

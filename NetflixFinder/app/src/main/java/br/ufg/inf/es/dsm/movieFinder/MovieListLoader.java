@@ -87,7 +87,7 @@ public class MovieListLoader implements OnMoreListener, WebServiceConsumer {
                     isAllLoaded = true;
                 }
             } catch (JSONException e) {}
-            recList.getAdapter().notifyDataSetChanged();
+            ((MovieAdapter)recList.getAdapter()).refreshData();
         }
 
         ((HomeActivity)context).getProgressDialog().dismiss();
@@ -162,7 +162,7 @@ public class MovieListLoader implements OnMoreListener, WebServiceConsumer {
                 Log.d("SORT", "The list will not be sorted.");
         }
         Collections.sort(movieList, comparator);
-        adapter.notifyDataSetChanged();
+        adapter.refreshData();
 
     }
 

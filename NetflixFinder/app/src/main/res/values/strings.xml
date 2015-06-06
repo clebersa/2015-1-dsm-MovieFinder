@@ -17,4 +17,6 @@
         <item>Release Year (oldest to newest)</item>
         <item>Rating</item>
     </string-array>
+
+    <string name="no_titles_founded">No title founded to your search</string>
 </resources>

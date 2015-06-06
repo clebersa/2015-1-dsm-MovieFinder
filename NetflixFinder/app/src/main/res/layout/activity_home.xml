@@ -12,6 +12,16 @@
         android:background="?attr/colorPrimary"
         android:elevation="2dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/no_titles_founded"
+        android:id="@+id/no_title_founded"
+        android:layout_gravity="center_horizontal"
+        android:textColor="#000"
+        android:paddingTop="10dp" />
+
     <com.malinskiy.superrecyclerview.SuperRecyclerView
         android:id="@+id/cardList"
         xmlns:app="http://schemas.android.com/apk/res-auto"
