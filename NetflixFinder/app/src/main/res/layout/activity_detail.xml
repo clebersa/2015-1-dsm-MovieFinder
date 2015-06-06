@@ -19,7 +19,6 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
-
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -34,6 +33,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/showTitle"
                 android:text="Show title"
+                android:textColor="@android:color/black"
                 android:layout_toRightOf="@+id/poster"
                 android:layout_toEndOf="@+id/poster"
                 android:layout_alignTop="@+id/poster" />

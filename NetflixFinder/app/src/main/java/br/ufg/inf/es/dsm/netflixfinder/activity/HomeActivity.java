@@ -2,6 +2,7 @@ package br.ufg.inf.es.dsm.netflixfinder.activity;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
@@ -32,6 +34,7 @@ import br.ufg.inf.es.dsm.netflixfinder.MovieListLoader;
 import br.ufg.inf.es.dsm.netflixfinder.adapter.MovieAdapter;
 import br.ufg.inf.es.dsm.netflixfinder.fragment.FilmsFragment;
 import br.ufg.inf.es.dsm.netflixfinder.R;
+import br.ufg.inf.es.dsm.netflixfinder.fragment.ListSortFragment;
 import br.ufg.inf.es.dsm.netflixfinder.model.Configuration;
 import br.ufg.inf.es.dsm.netflixfinder.assyncTask.MoviesAsyncTask;
 import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebServiceConsumer;
@@ -47,6 +50,7 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
 
     private final static String LOG_TAG = HomeActivity.class.getSimpleName();
     SuperRecyclerView recList;
+    MovieListLoader loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +71,14 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
         MovieAdapter movieAdapter = new MovieAdapter(new ArrayList<Movie>(), configuration);
         recList.setAdapter(movieAdapter);
 
+        SharedPreferences preferences = getSharedPreferences(
+                getString(R.string.sortMode), 0);
+        if("".equals(preferences.getString(getString(R.string.sortMode), ""))){
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString(getString(R.string.sortMode), SortMethod.NAME.toString());
+            editor.commit();
+        }
+
         if(savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().add(R.id.RESULT_FRAGMENT, new FilmsFragment()).commit();
         }
@@ -81,24 +93,46 @@ public class HomeActivity extends ActionBarActivity implements SearchView.OnQuer
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setOnQueryTextListener( this );
+        searchView.setOnQueryTextListener(this);
 
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.action_order_list:
+                ListSortFragment lsf = new ListSortFragment();
+                lsf.show(getFragmentManager(), "Dont know");
+                return true;
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void selectOrderList() {
+        Log.d("ORDER", "let's order!");
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        MovieListLoader loader = new MovieListLoader( this, recList, query );
+        loader = new MovieListLoader( this, recList, query );
+
+        //Hide virtual keyboard
+        InputMethodManager inputManager = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
         return true;
     }
 
     @Override
     public boolean onQueryTextChange(String s) {
         return false;
+    }
+
+    public void updateMovieListOrder(){
+        Log.d("SORT", "Update list sort");
+        if(loader != null) {
+            loader.sortList();
+        }
     }
 }

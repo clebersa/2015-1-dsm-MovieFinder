@@ -64,7 +64,7 @@ public class DetailActivity extends ActionBarActivity implements WebServiceConsu
 
         String imgUrl = configuration.getImageBaseUrl() + configuration.getSizePath("poster", Configuration.MEDIUM) + movie.getPosterPath();
         ImageView poster = (ImageView) findViewById(R.id.poster);
-        Picasso.with(this).load( imgUrl ).placeholder(R.drawable.loading_image).error(R.drawable.not_found_image).into(poster);
+        Picasso.with(this).load( imgUrl ).placeholder(R.drawable.loading_image).error(R.drawable.no_poster).into(poster);
 
         TextView showTitle = (TextView) findViewById( R.id.showTitle );
         showTitle.setText(movie.getTitle());

@@ -1,8 +1,11 @@
 package br.ufg.inf.es.dsm.netflixfinder;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
@@ -13,6 +16,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import br.ufg.inf.es.dsm.netflixfinder.activity.SortMethod;
 import br.ufg.inf.es.dsm.netflixfinder.adapter.MovieAdapter;
 import br.ufg.inf.es.dsm.netflixfinder.assyncTask.MoviesAsyncTask;
 import br.ufg.inf.es.dsm.netflixfinder.interfaces.WebServiceConsumer;
@@ -90,4 +94,36 @@ public class MovieListLoader implements OnMoreListener, WebServiceConsumer {
         recList.hideMoreProgress();
         recList.setLoadingMore(false);
     }
+
+    public void sortList(){
+        Log.d("SORT", "Sorting...");
+
+        SharedPreferences preferences = context.getSharedPreferences(
+                context.getString(R.string.sortMode), 0);
+        SortMethod sortMode = SortMethod.valueOf(preferences.getString(
+                context.getString(R.string.sortMode), ""));
+
+        switch (sortMode){
+            case NAME:
+                Log.d("SORT", "The list will be sorted by name.");
+
+                break;
+            case NAME_INVERSE:
+                Log.d("SORT", "The list will be sorted by name (inverse)");
+                break;
+            case YEAR:
+                Log.d("SORT", "The list will be sorted by release year (newest to oldest).");
+                break;
+            case YEAR_INVERSE:
+                Log.d("SORT", "The list will be sorted by release year (oldest to newest).");
+                break;
+            case RATING:
+                Log.d("SORT", "The list will be sorted by rating.");
+                break;
+            default:
+                Log.d("SORT", "The list will not be sorted.");
+        }
+
+    }
+
 }
