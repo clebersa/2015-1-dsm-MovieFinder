@@ -1,0 +1,15 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="br.ufg.inf.es.dsm.movieFinder.activity.SplashActivity"
+    android:background="@color/primaryDark">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/mf_logo"
+        android:layout_gravity="center"
+        android:src="@drawable/movie_finder_logo" />
+</FrameLayout>
