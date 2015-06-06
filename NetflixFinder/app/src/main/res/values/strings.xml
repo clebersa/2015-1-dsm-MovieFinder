@@ -19,4 +19,5 @@
     </string-array>
 
     <string name="no_titles_founded">No title founded to your search</string>
+    <string name="network_error">Network connection not found, Movie Finder needs network connection. Closing application...</string>
 </resources>

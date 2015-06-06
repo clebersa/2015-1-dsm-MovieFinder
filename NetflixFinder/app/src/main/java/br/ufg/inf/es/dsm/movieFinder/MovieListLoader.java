@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.malinskiy.superrecyclerview.OnMoreListener;
 import com.malinskiy.superrecyclerview.SuperRecyclerView;
@@ -64,6 +65,7 @@ public class MovieListLoader implements OnMoreListener, WebServiceConsumer {
         if (networkInfo != null && networkInfo.isConnected()) {
             return true;
         }
+
         return false;
     }
 

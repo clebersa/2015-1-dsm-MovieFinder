@@ -1,11 +1,15 @@
 package br.ufg.inf.es.dsm.movieFinder.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import br.ufg.inf.es.dsm.movieFinder.FinderApplication;
 import br.ufg.inf.es.dsm.movieFinder.R;
@@ -19,8 +23,26 @@ public class SplashActivity extends ActionBarActivity implements WebServiceConsu
     @Override
     protected void onStart() {
         super.onStart();
-        ConfigurationAssyncTask service = new ConfigurationAssyncTask(this, this);
-        service.execute();
+
+        if(isNetworkAvailable()) {
+            ConfigurationAssyncTask service = new ConfigurationAssyncTask(this, this);
+            service.execute();
+        } else {
+            this.finish();
+        }
+    }
+
+    public boolean isNetworkAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnected()) {
+            return true;
+        }
+
+        Toast toast = Toast.makeText(this, getString(R.string.network_error), Toast.LENGTH_LONG);
+        toast.show();
+        return false;
     }
 
     @Override
